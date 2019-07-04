@@ -42,7 +42,7 @@ class Main {
             def ui = gen.generate(opt)
 
             def destination_path = args[2]
-            new File( destination_path + PS + opt.uid +".html") << ui
+            new File( destination_path ) << ui
 
          break
          case 'ingen':
@@ -78,11 +78,11 @@ class Main {
             */
 
             def destination_path = args[2]
-            if (!new File(destination_path).exists())
+            /*if (!new File(destination_path).exists())
             {
                println "destination_path $destination_path doesn't exists"
                System.exit(0)
-            }
+            }*/
 
             def generate = 'version'
             if (args.size() > 4)
@@ -123,7 +123,7 @@ class Main {
                   ins = igen.generateXMLVersionStringFromOPT(opt)
                }
 
-               out = new File( destination_path + PS + opt.uid + ".xml")
+               out = new File( destination_path )
 
                // Generates UTF-8 XML output
                printer = new java.io.PrintWriter(out, 'UTF-8')
