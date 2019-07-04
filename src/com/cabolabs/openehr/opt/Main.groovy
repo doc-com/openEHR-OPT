@@ -42,7 +42,7 @@ class Main {
             def ui = gen.generate(opt)
 
             def destination_path = args[2]
-            new File( destination_path + PS + new java.text.SimpleDateFormat("'"+ opt.concept +"_'yyyyMMddhhmmss'_"+ opt.langCode +".html'").format(new Date()) ) << ui
+            new File( destination_path + PS + opt.uid +".html") << ui
 
          break
          case 'ingen':
@@ -123,7 +123,7 @@ class Main {
                   ins = igen.generateXMLVersionStringFromOPT(opt)
                }
 
-               out = new File( destination_path + PS + new java.text.SimpleDateFormat("'"+ opt.concept.replaceAll(' ', '_') +"_'yyyyMMddhhmmss'_"+ i +".xml'").format(new Date()) )
+               out = new File( destination_path + PS + opt.uid + ".xml")
 
                // Generates UTF-8 XML output
                printer = new java.io.PrintWriter(out, 'UTF-8')
