@@ -2,3 +2,6 @@
 
 # Package Files #
 /bin
+
+# IDE config file
+.idea

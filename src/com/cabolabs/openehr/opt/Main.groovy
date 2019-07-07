@@ -41,8 +41,11 @@ class Main {
             def gen = new OptUiGenerator()
             def ui = gen.generate(opt)
 
-            def destination_path = args[2]
-            new File( destination_path ) << ui
+            new File(args[2]).withWriter { writer ->
+               writer.write(ui)
+               writer.flush();
+               writer.close();
+            }
 
          break
          case 'ingen':
@@ -77,12 +80,14 @@ class Main {
             println opt.getNode('/content[archetype_id=openEHR-EHR-ACTION.test_action_multiple_occurence_node.v1]/ism_transition[at0004]')
             */
 
+            /*
             def destination_path = args[2]
-            /*if (!new File(destination_path).exists())
+            if (!new File(destination_path).exists())
             {
                println "destination_path $destination_path doesn't exists"
                System.exit(0)
-            }*/
+            }
+            */
 
             def generate = 'version'
             if (args.size() > 4)
@@ -99,7 +104,7 @@ class Main {
             def withParticipations = args.contains('withParticipations')
             println withParticipations
 
-            def igen, ins, out, printer
+            def igen, ins
             for (i in 1..count)
             {
                if (generate == 'composition')
@@ -123,16 +128,13 @@ class Main {
                   ins = igen.generateXMLVersionStringFromOPT(opt)
                }
 
-               out = new File( destination_path )
+               new File(args[2]).withWriter { writer ->
+                  writer.write(ins)
+                  writer.flush();
+                  writer.close();
+               }
 
-               // Generates UTF-8 XML output
-               printer = new java.io.PrintWriter(out, 'UTF-8')
-               printer.write(ins)
-               printer.flush()
-               printer.close()
-
-
-               println "Instance generated: "+ out.absolutePath
+               println "Instance generated: "
             }
          break
          case 'inval':
