@@ -100,7 +100,10 @@ class XmlInstanceGeneratorTagged {
    {
       this.opt = opt
 
-      builder.version(xmlns:       'http://schemas.openehr.org/v1',
+	  builder.versions(xmlns:       'http://schemas.openehr.org/v1',
+                      'xmlns:xsi': 'http://www.w3.org/2001/XMLSchema-instance') {
+
+      	version(xmlns:       'http://schemas.openehr.org/v1',
                       'xmlns:xsi': 'http://www.w3.org/2001/XMLSchema-instance',
                       'xsi:type':  'ORIGINAL_VERSION') {
          /**
@@ -181,6 +184,7 @@ class XmlInstanceGeneratorTagged {
             }
          }
       }
+	}
 
       return writer.toString()
    }
