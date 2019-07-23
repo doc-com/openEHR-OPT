@@ -140,7 +140,7 @@ class Main {
          case 'inval':
 
             // Read XSD from JAR as a resource
-            def inputStream = this.getClass().getResourceAsStream('/xsd/Version.xsd')
+            def inputStream = this.getClass().getResourceAsStream('/xsd/Versions.xsd')
             def validator = new XmlInstanceValidation(inputStream)
 
             if (args.size() < 2)
