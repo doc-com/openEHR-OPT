@@ -30,9 +30,9 @@ class Main {
       switch (args[0])
       {
          case 'uigen':
-            if (args.size() < 3)
+            if (args.size() < 2)
             {
-               println 'usage: opt uigen path_to_opt dest_folder'
+               println 'usage: opt uigen path_to_opt'
                System.exit(0)
             }
 
@@ -41,27 +41,23 @@ class Main {
             def gen = new OptUiGenerator()
             def ui = gen.generate(opt)
 
-            new File(args[2]).withWriter { writer ->
-               writer.write(ui)
-               writer.flush();
-               writer.close();
-            }
+            println ui;
 
          break
          case 'ingen':
 
-            println "ingen args "+ args.size() +" "+ args // DEBUG
+            //println "ingen args "+ args.size() +" "+ args // DEBUG
 
             if (args.size() < 3)
             {
-               println 'usage: opt ingen path_to_opt dest_folder [amount] [version|composition|version_committer|tagged] [withParticipations]'
+               println 'usage: opt ingen path_to_opt [amount] [version|composition|version_committer|tagged] [withParticipations]'
                System.exit(0)
             }
 
             int count = 1
             if (args.size() > 3)
             {
-               count = args[3].toInteger() // TOOD: check type conversion
+               count = args[2].toInteger() // TOOD: check type conversion
 
                if (count <= 0)
                {
@@ -90,19 +86,19 @@ class Main {
             */
 
             def generate = 'version'
-            if (args.size() > 4)
+            if (args.size() > 3)
             {
-               if (!['version', 'composition', 'version_committer', 'tagged'].contains(args[4]))
+               if (!['version', 'composition', 'version_committer', 'tagged'].contains(args[3]))
                {
                   println "result type should be 'version' or 'composition' or 'version_committer' or 'tagged'"
                   System.exit(0)
                }
 
-               generate = args[4]
+               generate = args[3]
             }
 
             def withParticipations = args.contains('withParticipations')
-            println withParticipations
+            //println withParticipations
 
             def igen, ins
             for (i in 1..count)
@@ -128,13 +124,14 @@ class Main {
                   ins = igen.generateXMLVersionStringFromOPT(opt)
                }
 
-               new File(args[2]).withWriter { writer ->
+               /*new File(args[2]).withWriter { writer ->
                   writer.write(ins)
                   writer.flush();
                   writer.close();
                }
 
-               println "Instance generated: "
+               println "Instance generated: "*/
+			   println ins;
             }
          break
          case 'inval':
